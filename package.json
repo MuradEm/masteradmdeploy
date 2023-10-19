@@ -1,0 +1,51 @@
+{
+  "name": "master2.1",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "prod": "next export",
+    "dev": "next dev",
+    "build": "next build",
+    "start": " node --trace-deprecation server.js",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/is-prop-valid": "^1.2.1",
+    "chart.js": "^4.4.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "chartjs-plugin-outerlabels": "^2.0.0",
+    "chartjs-plugin-outlabels3": "^1.3.5",
+    "cropperjs": "^1.6.1",
+    "i18next": "^23.5.1",
+    "i18next-browser-languagedetector": "^7.1.0",
+    "lts": "^1.2.0",
+    "moment": "^2.29.4",
+    "next": "13.5.4",
+    "next-auth": "^4.23.2",
+    "next-images": "^1.8.5",
+    "nookies": "^2.5.2",
+    "prettier": "^3.0.3",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-cropper": "^2.3.3",
+    "react-dom": "^18.2.0",
+    "react-files": "^3.0.0",
+    "react-i18next": "^13.2.2",
+    "react-icons": "^4.11.0",
+    "react-select": "^5.7.7",
+    "react-switch": "^7.0.0",
+    "react-window": "^1.8.9",
+    "styled-components": "^6.0.9",
+    "update": "^0.7.4"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.22",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/styled-components-react-native": "^5.2.3",
+    "eslint": "^8",
+    "eslint-config-next": "13.5.4",
+    "typescript": "^5"
+  }
+}
