@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { ButtonIcon } from "../ButtonIcon";
 import { Container } from "./styles";
 
-import aboutIcon from "../../assets/icons/SheetIcon.svg";
+import aboutIcon from "../../assets/icons/sheeticon.svg";
 
 /*########################################################## 
 ***Component***
