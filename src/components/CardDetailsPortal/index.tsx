@@ -1,4 +1,5 @@
-import {createRef, useContext, useState} from "react";
+/* eslint-disable @next/next/no-img-element */
+import {createRef, useContext, useEffect, useState} from "react";
 import { Container } from "./styles";
 import { CardDetails } from "@/shared/CardDetails";
 import { Row } from "@/shared/Row";
@@ -18,7 +19,7 @@ import { Session} from "next-auth";
 import {getSession} from "next-auth/react";
 import { useTranslation } from "react-i18next";
 import {Button} from "@/shared/Button";
-import {get_portals, update_portal} from "@/lib/apicalls";
+import {get_portals, send_adm_access, update_portal} from "@/lib/apicalls";
 import {AppContext} from "@/services/context";
 export interface Props {
   actions?: ("close" | "save" | "delete")[];
@@ -71,10 +72,12 @@ export const  CardDetailsPortal = ({
     useState<boolean>(false);
   const [errorResponsibleEmailEmpty, setErrorResponsibleEmailEmpty] =
     useState<boolean>(false);
+    const [errorEmailNotOnDataBase, setErrorEmailNotOnDataBase] =
+    useState<boolean>(false);
   const [isInactivated, setIsInactivated] = useState<boolean>(false);
   const [isTimeSheetChecked, setIsTimeSheetChecked] = useState<boolean>(false);
   const [isTaskListChecked, setIsTaskListChecked] = useState<boolean>(false);
-  const { headerSearchText, setPortals } = useContext(AppContext);
+  const { headerSearchText, setPortals, setQuitPortalsWithoutSaving } = useContext(AppContext);
 
   const {t} = useTranslation();
 
@@ -82,6 +85,38 @@ export const  CardDetailsPortal = ({
   const [image, setImage] = useState(null);
   const cropperRef = createRef<ReactCropperElement>();
   const [currentImage, setCurrentImage] = useState("1");
+
+  const [initialInfo, setInitialInfo] = useState<Portal>({
+    client_id: "",
+    portal: "",
+    owner_user_id: "",
+    name: "",
+    company: "",
+    register: "",
+    address: "",
+    number: "",
+    district: "",
+    city: "",
+    state: "",
+    zip: "",
+    phone: "",
+    password: "",
+    contact: "",
+    mail: "",
+    logo_report: "",
+    logo_screen: "",
+    inactive: "",
+    primary_color: "",
+    secundary_color: "",
+    payment_method: "",
+    access_tasklist: "",
+    access_timesheet: ""
+
+  });
+  
+  useEffect(() => {
+    setInitialInfo(currentPortal)
+  }, [])
 
   const getPortals = async ()=>{
     /*
@@ -92,7 +127,24 @@ export const  CardDetailsPortal = ({
       setPortals(data)
     }
   }
-
+  async function sendAdmAccess() {
+    if(currentPortal.client_id != "0")
+    {
+      if (currentPortal.mail == "") {
+        setErrorResponsibleEmailEmpty(true);
+      }
+      else
+      {
+        
+            await send_adm_access(Number(currentPortal.client_id),currentPortal.mail);
+        
+            
+      }
+      
+    }
+    else
+       setErrorEmailNotOnDataBase(true);
+  }
   async function salvarPortal() {
     if (currentPortal.company == "") {
       setErrorCompanyEmpty(true);
@@ -171,6 +223,14 @@ export const  CardDetailsPortal = ({
     }
   };
 
+  function ToggleQuit(){
+    setQuitPortalsWithoutSaving(true)
+  }
+
+  function VerifyModifications(){
+    currentPortal != initialInfo ? ToggleQuit() : closeAction(false)
+  }
+
   return (
     <Container translation={t}>
       <CardDetails
@@ -179,8 +239,8 @@ export const  CardDetailsPortal = ({
         }}
         actions={actions}
         deleteFunction={() => {deleteAction(true)}}
-        closeFunction={() => {closeAction(false)}}
-        height={"828px"}
+        closeFunction={() => VerifyModifications()}
+        height={"100%"}
       >
         <Col
           padding={"0 2.13rem 0 1.44rem"}
@@ -504,8 +564,8 @@ export const  CardDetailsPortal = ({
               <div
                 id={"ResponsibleEmailField"}
                 className={`administrationInputFieldStyle ${
-                  errorResponsibleEmailEmpty && "requiredFields"
-                }`}
+                  (errorResponsibleEmailEmpty && !errorEmailNotOnDataBase) && "requiredFields" } 
+                  ${ errorEmailNotOnDataBase && "emailNotonDataBase" } `}
               >
                 <Label
                   onChange={(e) => {
@@ -516,7 +576,7 @@ export const  CardDetailsPortal = ({
                   label={t("Responsible E-Mail") + " *"}
                   defaultValue={currentPortal.mail}
                 ></Label>
-                <h6 className={"textButton"}>{t("Resend E-Mail")}</h6>
+                <h6 className={"textButton"} onClick={()=>{sendAdmAccess()}}>{t("Resend E-Mail")}</h6>
               </div>
               <div className={"administrationInputFieldStyle"}>
                 <Label

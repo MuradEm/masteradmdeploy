@@ -33,16 +33,16 @@ export const CardDetailsMasters = ({
 }: Props) => {
   //Validation states
   const [errorEmailEmpty, setErrorEmailEmpty] = useState<boolean>(false);
-  const { setUsers, headerSearchText, quitMasterWithoutSaving, setQuitMasterWithoutSaving } = useContext(AppContext);
+  const { setUsers, headerSearchText, setQuitMasterWithoutSaving } = useContext(AppContext);
   const { t } = useTranslation();
-  const [initialEmail, setInitialEmail] = useState<string>("")
-  const [initialCheckedValue, setInitialCheckedValue] = useState<string>("")
-
-
+  const [initialInfo, setInitialInfo] = useState<MasterUser>({
+    email: "",
+    name: "",
+    checkedValue: "1",
+  });
 
   useEffect(() => {
-    setInitialEmail(currentMasterUser.email)
-    setInitialCheckedValue(currentMasterUser.checkedValue)
+    setInitialInfo(currentMasterUser)
   }, [])
 
     const getUsers = async ()=>{
@@ -78,6 +78,10 @@ export const CardDetailsMasters = ({
     setQuitMasterWithoutSaving(true)
   }
 
+  function VerifyModifications(){
+    currentMasterUser != initialInfo ? ToggleQuit() : closeAction(false)
+  }
+
   return (
     <Container translation={t}>
       <CardDetails
@@ -87,12 +91,8 @@ export const CardDetailsMasters = ({
           salvarMasterUser();
         }}
         actions={["close", "save"]}
-        closeFunction={() => 
-          {currentMasterUser.email != initialEmail || currentMasterUser.checkedValue != initialCheckedValue ? 
-            ToggleQuit() :
-            closeAction(false) ;
-        }}
-        height={"828px"}
+        closeFunction={() => VerifyModifications()}
+        height={"100%"}
       >
         <Col gap={"1.75rem"} padding={"0 1.25rem"}>
           {currentMasterUser.name != "" && (

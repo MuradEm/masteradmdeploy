@@ -20,7 +20,7 @@ export const Container = styled.div<Props>`
     max-width: ${(props) => props.width ? props.width : "58.9375rem"};
     border-radius: ${(props) =>    props.borderRadius ? props.borderRadius : "0.375rem"};
     height: ${(props) => props.height ? props.height : "51.75rem"};
-    
+    overflow: hidden;
   }
   .closeButton{
     width: 1.5rem;

@@ -9,7 +9,7 @@ export const Container = styled.div<Props>`
   flex: 1;
   max-width: 100dvw;
   height: 100%;
-  @media (min-width: 720px) {
+  @media (min-width: 1040px) {
     width: 58.9375rem;
   }
   //overflow: auto;

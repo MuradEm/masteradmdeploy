@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import { useTranslation } from "react-i18next";
 import { AppContext } from "../../services/context";
 import { ButtonIcon } from "../../shared/ButtonIcon";

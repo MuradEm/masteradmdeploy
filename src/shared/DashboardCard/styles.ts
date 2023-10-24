@@ -53,6 +53,7 @@ export const Container = styled.div<Props>`
   }
   
   .contentStyle{
+    position: relative;
     display: flex;
     flex: 1;
     width: 100%;

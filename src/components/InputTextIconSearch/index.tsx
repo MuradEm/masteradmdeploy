@@ -21,7 +21,8 @@ export function InputTextIconSearch({
         name="searchtext"
         value={value}
         onChange={(e)=>setValue(e.target.value)}
-        autoComplete="off"
+        //autoComplete="o"
+        autoFocus
       />
     </Container>
   )

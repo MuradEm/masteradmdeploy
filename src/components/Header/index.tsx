@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import React, { useContext, useEffect, useState } from "react";
 import { Container } from "./styles";
@@ -40,12 +42,21 @@ export function Header({
   const [showMobileSearch, setShowMobileSearch] = useState(false)
   const path = usePathname();
   const { t } = useTranslation();
+
   async function  userInfo() {
     const userInformation= await get_user(9);
     setUserName(userInformation[0].user_name);
     setUserPhoto(userInformation[0].photo_Base64);
     setUserEmail(userInformation[0].email);
     console.log(userInformation+"cu");
+  }
+
+  const onClickCloseMobileSearch = ()=>{
+    /*
+    onClick close mobile search
+    */
+    setShowMobileSearch(false)
+    setHeaderSearchText("")
   }
 
   useEffect(()=>{
@@ -104,7 +115,7 @@ export function Header({
           ?
           <div className="searchBarMobile">
             <div className="searchInput"><InputTextIconSearch value={headerSearchText} setValue={setHeaderSearchText}/></div>
-            <div className="btnClose"><input type="button" onClick={()=>setShowMobileSearch(false)} /></div>
+            <div className="btnClose"><input type="button" onClick={()=>onClickCloseMobileSearch()} /></div>
           </div>
           :
           null

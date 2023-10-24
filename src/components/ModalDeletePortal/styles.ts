@@ -22,6 +22,14 @@ export const Container = styled.div<Props>`
     left: calc(50% - 26.25rem / 2);
   }
 
+  label{
+    div{
+      input{
+        max-width: 270px;
+      }
+    }
+  }
+
   .icontext {
     display: flex;
     flex-direction: row;

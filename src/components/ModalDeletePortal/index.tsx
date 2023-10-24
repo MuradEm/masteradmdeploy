@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 
 import { useContext, useState } from "react";
 
@@ -50,7 +51,7 @@ export function ModalDelete({
   const [confirmationText, setConfirmationText] = useState<string>("");
   const { t } = useTranslation();
   const deleteText = t("I want to delete all data from this portal");
-  const { headerSearchText, setPortals, setShowModalEditPortal } = useContext(AppContext);
+  const { headerSearchText, setPortals, setShowModalEditPortal, setShowModalDelete } = useContext(AppContext);
 
   const getPortals = async ()=>{
     /*
@@ -68,6 +69,7 @@ export function ModalDelete({
       await delete_portal(Number(client_id)); // TODO CAUTION HERE THIS DELETES EVERYTHING RELATED TO THE PORTAL
       await getPortals();
       setShowModalEditPortal(false);
+      setShowModalDelete(false);
     }
 
   }

@@ -9,6 +9,7 @@ const nextConfig = {
 
 module.exports = nextConfig
 module.exports = {
+  reactDevOverlay: false,
     experimental: {
       serverActions: true,
     },

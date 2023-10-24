@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100% - 2.5rem);
+  justify-content: space-between;
 
   @media (min-width: 720px) {
     width: 25.438rem;

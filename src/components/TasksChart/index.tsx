@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 
 import { Container } from "./styles"
 import { Chart as ChartJs, ArcElement } from "chart.js/auto";
@@ -36,7 +38,7 @@ export function ChartTasks() {
   const screenSize = typeof window !== 'undefined' && typeof window.navigator !== 'undefined' ? window.innerWidth: 1080;
   
   async function get_data() {
-    const temp = await get_tasks_summ();
+     const temp = await get_tasks_summ();
       
     setDataGraphic({tasks_created: temp[0].total_created, tasks_deleted: temp[0].total_deleted, tasks_closed: temp[0].total_closed});
   }
@@ -45,7 +47,7 @@ export function ChartTasks() {
   }
   function get_data_real(data: number)
   {
-    return  data==0?0:(data/(Number(dataGraphic.tasks_closed)+Number(dataGraphic.tasks_created)+Number(dataGraphic.tasks_deleted)))>=0.139? data: (Number(dataGraphic.tasks_closed)+Number(dataGraphic.tasks_created)+Number(dataGraphic.tasks_deleted))*0.14
+    return  data==0?0:(data/(Number(dataGraphic.tasks_closed)+Number(dataGraphic.tasks_created)+Number(dataGraphic.tasks_deleted)))>=0.139? data:data/*  (Number(dataGraphic.tasks_closed)+Number(dataGraphic.tasks_created)+Number(dataGraphic.tasks_deleted))*0.14 */
     
   }
 useEffect(() => {
@@ -141,7 +143,7 @@ useEffect(() => {
           {Number(dataGraphic.tasks_created)!=0?(
           <div className="doughnut-pointer1" style={{
           marginTop: (getXY( get_data_real(Number(dataGraphic.tasks_created))/2+get_data_real(Number(dataGraphic.tasks_closed)), get_data_total(),screenSize>720?6.375: 5)[1] *16),
-          marginLeft: ((get_data_real(Number(dataGraphic.tasks_created))/2+get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total())>=(0.5)? (getXY( get_data_real(Number(dataGraphic.tasks_created))/2+get_data_real(Number(dataGraphic.tasks_closed)), get_data_total(),screenSize>720?6.375: 5)[0] *32)-122  :(getXY( get_data_real(Number(dataGraphic.tasks_created))/2+get_data_real(Number(dataGraphic.tasks_closed)), get_data_total(),screenSize>720?6.375: 5)[0] *32)
+          marginLeft: ((get_data_real(Number(dataGraphic.tasks_created))/2+get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total())>=(0.5)|| (get_data_real(Number(dataGraphic.tasks_created)) + get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total()< 0.28? (getXY( get_data_real(Number(dataGraphic.tasks_created))/2+get_data_real(Number(dataGraphic.tasks_closed)), get_data_total(),screenSize>720?6.375: 5)[0] *32)-122  :(getXY( get_data_real(Number(dataGraphic.tasks_created))/2+get_data_real(Number(dataGraphic.tasks_closed)), get_data_total(),screenSize>720?6.375: 5)[0] *32)
           }}> 
           {(((get_data_real(Number(dataGraphic.tasks_created))/2)+get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total())>=0.5?(
             (((get_data_real(Number(dataGraphic.tasks_created))/2)+get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total())<0.75  ?
@@ -160,19 +162,25 @@ useEffect(() => {
                   <img src={indicatorRight.src} style={{marginLeft:'122px',marginTop: '0px', gridRow:1, gridColumn:1}}/>
                   <h1 className="rightdown1">{t("Created")}</h1>
                   <h1 className="rightdown2" >{Number(dataGraphic.tasks_created)+" " + t("Tasks")}</h1>
-                 </>): 
+                 </>): (get_data_real(Number(dataGraphic.tasks_created)) + get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total()> 0.28?
                  (<>
                   <img src={indicatorLeft.src} style={{marginLeft:'122px',marginTop: '0px', transform: `scale(-1, 1)`, gridRow:1, gridColumn:1}}/>
-                  <h1 className="right1">{t("Created")}</h1>
+                  <h1 className="right1">{t("aaCreated")}</h1>
                   <h1 className="right2">{Number(dataGraphic.tasks_created)+" " + t("Tasks")}</h1>
-                  </>)}
+                  </>):(
+                  <>
+                 <img src={indicatorLeft.src} style={{marginLeft:'0', marginTop: '0px', gridRow:1, gridColumn:1}}/>
+                 <h1 className="left1">{t("Created")}</h1>
+                 <h1 className="left2">{Number(dataGraphic.tasks_created)+" " + t("Tasks")}</h1>
+                </>)
+                  }
                  
           </div>):null
           }
           {Number(dataGraphic.tasks_deleted)!=0?(
           <div className="doughnut-pointer1" style={{
           marginTop: (getXY( get_data_real(Number(dataGraphic.tasks_deleted))/2+get_data_real(Number(dataGraphic.tasks_created))+get_data_real(Number(dataGraphic.tasks_closed)), get_data_total(),screenSize>720?6.375: 5)[1] *16),
-          marginLeft: (((get_data_real(Number(dataGraphic.tasks_deleted))/2)+get_data_real(Number(dataGraphic.tasks_created))+get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total())>=(0.5)? (getXY( get_data_real(Number(dataGraphic.tasks_deleted))/2+get_data_real(Number(dataGraphic.tasks_created))+get_data_real(Number(dataGraphic.tasks_closed)), get_data_total(),screenSize>720?6.375: 5)[0] *32)-122: (getXY( (get_data_real(Number(dataGraphic.tasks_deleted))/2)+Number(dataGraphic.tasks_created)+Number(dataGraphic.tasks_closed), get_data_total(),screenSize>720?6.375: 5)[0] *32)
+          marginLeft: (((get_data_real(Number(dataGraphic.tasks_deleted))/2)+get_data_real(Number(dataGraphic.tasks_created))+get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total())>=(0.5)&& (get_data_real(Number(dataGraphic.tasks_created)) + get_data_real(Number(dataGraphic.tasks_deleted)))/get_data_total()> 0.28? (getXY( get_data_real(Number(dataGraphic.tasks_deleted))/2+get_data_real(Number(dataGraphic.tasks_created))+get_data_real(Number(dataGraphic.tasks_closed)), get_data_total(),screenSize>720?6.375: 5)[0] *32)-122: (getXY( (get_data_real(Number(dataGraphic.tasks_deleted))/2)+Number(dataGraphic.tasks_created)+Number(dataGraphic.tasks_closed), get_data_total(),screenSize>720?6.375: 5)[0] *32)
           }}> 
                 {(((get_data_real(Number(dataGraphic.tasks_deleted))/2)+get_data_real(Number(dataGraphic.tasks_created))+get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total())>=0.5?(
             (((get_data_real(Number(dataGraphic.tasks_deleted))/2)+get_data_real(Number(dataGraphic.tasks_created))+get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total())<0.75  ?
@@ -181,12 +189,19 @@ useEffect(() => {
                 <h1 className="leftdown1">{t("Deleted")}</h1>
                 <h1 className="leftdown2">{Number(dataGraphic.tasks_deleted)+" " + t("Tasks")}</h1>
                 </>
-                 :
+                 : (get_data_real(Number(dataGraphic.tasks_deleted)) + get_data_real(Number(dataGraphic.tasks_created)))/get_data_total()> 0.28?
                  <>
                  <img src={indicatorLeft.src} style={{marginLeft:'', marginTop: '0px', gridRow:1, gridColumn:1}}/>
                  <h1 className="left1">{t("Deleted")}</h1>
                  <h1 className="left2">{Number(dataGraphic.tasks_deleted)+" " + t("Tasks")}</h1>
-                </>):
+                </>:
+                (
+                  <>
+                  <img src={indicatorLeft.src} style={{marginLeft:'122px',marginTop: '0px', transform: `scale(-1, 1)`, gridRow:1, gridColumn:1}}/>
+                  <h1 className="right1">{t("Deleted")}</h1>
+                  <h1 className="right2">{Number(dataGraphic.tasks_deleted)+" " + t("Tasks")}</h1>
+                  </>
+                )):
                  (((get_data_real(Number(dataGraphic.tasks_deleted))/2)+get_data_real(Number(dataGraphic.tasks_created))+get_data_real(Number(dataGraphic.tasks_closed)))/get_data_total())>0.25?
                  (<>
                   <img src={indicatorRight.src} style={{marginLeft:'122px',marginTop: '0px', gridRow:1, gridColumn:1}}/>
@@ -197,7 +212,7 @@ useEffect(() => {
                   <img src={indicatorLeft.src} style={{marginLeft:'122px',marginTop: '0px', transform: `scale(-1, 1)`, gridRow:1, gridColumn:1}}/>
                   <h1 className="right1">{t("Deleted")}</h1>
                   <h1 className="right2">{Number(dataGraphic.tasks_deleted)+" " + t("Tasks")}</h1>
-                  </>)}
+                  </>) }
           </div>):null
           }
         </div>

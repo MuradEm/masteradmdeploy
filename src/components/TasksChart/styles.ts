@@ -217,6 +217,37 @@ export const Container = styled.section`
         font-size: 0.75rem;
       }
     }
+    .left3{
+      margin-top: -0.625rem;
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: start;
+      color: #2F3640;
+      align-self: start;
+      text-align: left;
+      font-family: Ubuntu;
+      font-size: 0.625rem;
+      font-weight:bold;
+      line-height: 0.75rem; /* 100% */
+      @media (min-width: 720px) {
+        margin-top: -0.75rem;
+        font-size: 0.75rem;
+      }
+    }
+    .left4{
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: start;
+      color: #2F3640;
+      font-family: Ubuntu;
+      font-size: 0.625rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 0.75rem;
+      @media (min-width: 720px) {
+        font-size: 0.75rem;
+      }
+    }
     .leftdown1{
       margin-top: -0.24rem;
       grid-column: 1;

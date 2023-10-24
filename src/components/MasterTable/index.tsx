@@ -93,10 +93,10 @@ export function MasterTable({
               className={`row data ${
                 isPortal(d)
                   ? d.company == currentPortal.company
-                    ? "selectedRow"
+                    ? showModalEditPortal ? "selectedRow" : ""
                     : ""
                   : d.email == currentMasterUser.email
-                  ? "selectedRow"
+                  ? showModalEditPortal ? "selectedRow" : ""
                   : ""
               }`}
               data-inactive={"inactive" in d ? d.inactive : "false"}
@@ -111,7 +111,7 @@ export function MasterTable({
             >
               <div className="col1">
                 {/*The following conditions are needed to maintain the current column width styles*/}
-                <span>{isPortal(d) ? d.company.length > 28 ? `${d.company.substring(0,27)}...` : d.company : d.name.length > 28 ? `${d.name.substring(0,27)}...` : d.name}</span>
+                <span>{isPortal(d) ? d.company: d.name}</span>
               </div>
               <div className="col2">
                 <span>{isPortal(d) ? d.portal : d.email}</span>

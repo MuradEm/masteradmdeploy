@@ -6,7 +6,7 @@
     "prod": "next export",
     "dev": "next dev",
     "build": "next build",
-    "start": " node --trace-deprecation server.js",
+    "start": " node server.js",
     "lint": "next lint"
   },
   "dependencies": {

@@ -7,8 +7,8 @@ export interface Props{
 export const Container = styled.div<Props>`
   //flex: 1;
   //max-width: 100dvw;
-  //overflow: auto;
   //position: relative;
+    
   .bigImageBorderStyle {
     border-radius: 50%;
     border: 0.1rem solid var(--color-blue-primary);
@@ -166,6 +166,38 @@ export const Container = styled.div<Props>`
     top: 2.4rem;
     left: 2.2rem;
     content: "${(props) => props.translation('this field is mandatory')}";
+    font-size: 0.75rem;
+    color: red;
+  }
+  
+  .emailNotonDataBase {
+    position: relative;
+    label {
+      div {
+        p {
+          color: red;
+        }
+        border-color: red;
+      }
+    }
+  }
+
+  .emailNotonDataBase:before {
+    position: absolute;
+    font-family: "Ubuntu";
+    top: 2.4rem;
+    content: "${(props) => props.translation('Error')}:";
+    font-weight: bold;
+    font-size: 0.75rem;
+    color: red;
+  }
+
+  .emailNotonDataBase:after {
+    position: absolute;
+    font-family: "Ubuntu";
+    top: 2.4rem;
+    left: 2.2rem;
+    content: "${(props) => props.translation('Portal is not yet registered')}";
     font-size: 0.75rem;
     color: red;
   }

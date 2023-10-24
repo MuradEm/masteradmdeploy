@@ -45,7 +45,8 @@ export const Container= styled.div`
   }
   
   .selectedRow {
-    background-color: var(--color-white-tertiary);
+    border: 1px solid var(--color-white-tertiary);
+    box-shadow: 0px 2px 3px 0px var(--color-white-tertiary);
   }
 
   .data {
@@ -75,22 +76,27 @@ export const Container= styled.div`
   }
 
   .col1 {
-    width: 16.875rem; //270px
     display: inline-block;
-    height: 1.25rem; //20px
-    white-space: nowrap;
-
+    
     @media (min-width: 720px) {
       display: block;
+      width: 16.875rem; //270px
     }
-
+    
     span {
       font-family: "Inter";
       font-weight: 700;
-
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      
       @media (min-width: 720px) {
+        white-space: nowrap;
         font-family: "Ubuntu";
         font-weight: 500;
+        max-width: 16rem;
+
       }
     }
   }
@@ -106,16 +112,32 @@ export const Container= styled.div`
   }
   
   .modalEdit{
-    position: absolute;
-    width: 100dvw;
-    height: calc(100dvh - 50px);
-    overflow: scroll;
-    z-index: 1500;
+
     
+
+    @media (min-width: 0px) {
+      position: absolute;
+      width: 100dvw;
+      height: calc(100dvh - 50px);
+      overflow: scroll;
+      z-index: 1500;
+      margin-bottom: 0px;
+  }
     @media (min-width: 720px) {
+    position: absolute;
+        width: calc(100dvw - 100px);
+        height: calc(100dvh - 100px);
+        overflow: scroll;
+        z-index: 1500;
+       
+    }
+    @media (min-width: 1040px) {
       position: static;
       width: auto;
       padding-top: 10px;
+      overflow: scroll;
+      height: calc(100dvh - 90px);
+      margin-bottom: 0px;
     }
   }
 
@@ -125,7 +147,7 @@ export const Container= styled.div`
     height: 1.25rem; //20px
     white-space: nowrap;
 
-    @media (min-width: 720px) {
+    @media (min-width: 7200px) {
       padding-left: 1.25rem; //20px
     }
 

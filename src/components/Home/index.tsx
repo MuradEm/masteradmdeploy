@@ -1,4 +1,7 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
+"use client";
 import { useTranslation } from "react-i18next";
 import { ModalSettingsUser } from "../../components/ModalSettingsUser";
 import { AppContext } from "../../services/context";
@@ -33,6 +36,12 @@ import {
   get_reports_summ,
   get_users_summ,
 } from "@/lib/apicalls";
+import { useRouter, usePathname } from 'next/navigation'
+import { ChartPortalsDetails } from "../PortalsDetailedChart";
+import { ChartActiveProjects } from "../ActiveProjectsChart";
+import { ChartTimesheetDetailed } from "../DetailedTimesheetChart";
+import { ChartTasklistDetailed } from "../DetailedTasklistChart";
+import { ChartTaskDetailed } from "../DetailedTaskChart";
 /*################################################## 
 ***Page***
     Home
@@ -50,7 +59,10 @@ export function Home() {
     setShowModalPassword,
     isMastersAdminsActive,
     isShowInactive,
-    setShowInactive
+    setShowInactive,
+    setChartDetailedHeader,
+    setDetailedChart,
+    setChartDetailedTitle
   } = useContext(AppContext);
   const { t } = useTranslation();
   useState<boolean>(false);
@@ -60,7 +72,8 @@ export function Home() {
   const [subProjectsNumber, setSubProjectsNumber] = useState(0);
   const [reportsNumber, setReportsNumber] = useState(0);
   const [reportsHours, setReportsHours] = useState(0);
-
+  const router = useRouter()
+  const path = usePathname()
   // Data for Cards
   async function get_data() {
     // Data for portal Cards
@@ -80,14 +93,13 @@ export function Home() {
   useEffect(() => {
     get_data();
   }, []);
-
+  
 
   return (
     <>
 
       <Container>
         
-        {/* <Header></Header> */}
         <Col
           padding={"0 1.25rem"}
           gap={"0.63rem"}
@@ -100,15 +112,21 @@ export function Home() {
           <Col width={"100%"}>
             <SectionSeparator width={"100%"}>{t("Portals")}</SectionSeparator>
             <Row gap={"1.25rem"} width={"100%"}>
-              <DashboardCard title="Portal">
+              <DashboardCard title="Portal" >
+                <div className="click"
+                onClick={()=>{
+                  router.push('/chartdetails/?chart=1', undefined)
+                }}
+                ></div>
                 <Row justifyContent={"space-around"} flex={"1"}>
                   <Col
                     alignItems={"center"}
                     flex={"1"}
                     gap={"0.62rem"}
                     gapMobile={"0.375rem"}
+                    
                   >
-                    <img
+                    <img 
                       className={"DashboardCardIconStyle"}
                       src={OfficeBuilding.src}
                     />
@@ -141,6 +159,12 @@ export function Home() {
                 title={t("Number Of Active Projects")}
                 padding={"0.62rem 0 0 0"}
               >
+                <div className="click"
+                onClick={()=>{
+                  router.push('/chartdetails/?chart=2', undefined)
+                }}
+                ></div>
+                
                 <Row
                   justifyContent={"center"}
                   flex={"1"}
@@ -184,6 +208,11 @@ export function Home() {
             <SectionSeparator width={"100%"}>TimeSheet</SectionSeparator>
             <Row gap={"1.25rem"} width={"100%"}>
               <DashboardCard title={t("Reports Released in the last 30 Days")}>
+              <div className="click"
+                onClick={()=>{
+                  router.push('/chartdetails/?chart=3', undefined)
+                }}
+                ></div>
                 <Row
                   justifyContent={"space-around"}
                   flex={"1"}
@@ -221,9 +250,19 @@ export function Home() {
             <SectionSeparator width={"100%"}>TaskList</SectionSeparator>
             <Row gap={"1.25rem"} width={"100%"}>
               <DashboardCard title={t("TaskList In The Last 30 Days")}>
+              <div className="click"
+                onClick={()=>{
+                  router.push('/chartdetails/?chart=4', undefined)
+                }}
+                ></div>
                 {<ChartTasklist></ChartTasklist>}
               </DashboardCard>
               <DashboardCard title={t("Tasks In The Last 30 Days")}>
+              <div className="click"
+                onClick={()=>{
+                  router.push('/chartdetails/?chart=5', undefined)
+                }}
+                ></div>
                 {<ChartTasks></ChartTasks>}
               </DashboardCard>
             </Row>
@@ -237,4 +276,5 @@ export function Home() {
     </>
   );
 }
+
 

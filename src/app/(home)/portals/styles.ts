@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const Container= styled.div<Props>`
-
+overflow: hidden;
   @media (min-width: 720px) {
     width: 100%;
     margin-top: 0;

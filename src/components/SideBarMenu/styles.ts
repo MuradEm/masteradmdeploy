@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 interface SideBarOpen {
-    isOpen: boolean;
+  isOpen: boolean;
   }
 
 export const Container = styled.aside<SideBarOpen>`

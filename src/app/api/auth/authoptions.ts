@@ -42,8 +42,8 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     pages: {
-        signIn: '/MasterAdm2.0/auth',
-        error: '/MasterAdm2.0/auth',
+        signIn: '/auth/',
+        error: '/auth/',
     },
     secret: process.env.NEXTAUTH_SECRET,
     session:{

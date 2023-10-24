@@ -38,6 +38,8 @@ export function SideBarMenu(){
         setIsPortalsActive(true);
         setIsMastersAdminsActive(false);
         setIsMoreOptionsActive(false)
+        
+        CloseSideBar()
 
         router.push('/portals');  
     }
@@ -46,6 +48,9 @@ export function SideBarMenu(){
         setIsPortalsActive(false);
         setIsMastersAdminsActive(true);
         setIsMoreOptionsActive(false)
+        setIsSideBarMenuActive(false)
+
+        CloseSideBar()
 
         router.push('/masteradmins'); 
     }
@@ -55,33 +60,52 @@ export function SideBarMenu(){
         setIsMastersAdminsActive(false);
         setIsMoreOptionsActive(false);
         setHeaderLocation("Dashboard")
+
         router.push('/')
     }
 
     return(
-      <Container
-        style={{display: path.startsWith("/auth") ? "none" : ""}} 
-        isOpen={isSideBarMenuActive} 
-        onMouseEnter={OpenSideBar} onMouseLeave={CloseSideBar}
-        onClick={event => {setShowModalEditPortal(false), setIsSideBarMenuActive(false)}}
-      >
-        <div className="logo" onClick={BackToDashboard}>
-            {isSideBarMenuActive ? 
-                <Image src={pmLogoSBOpen} alt="pmLogo" onClick={CloseSideBar}></Image> : 
-                screenSize > 720 ?  
-                <Image src={pmLogoSBClosed} alt="pmLogo" onClick={CloseSideBar}></Image> : null}
-        </div>
-        <section>
-            <div className={isPortalsActive ? "checked" : ""} onClick={TogglePortalsActive}>
-                <HiOutlineGlobe />
-                <h2>{t("Portals")}</h2>
+      <>
+        {window.innerWidth < 720 && isSideBarMenuActive ? (
+        
+        <div
+            style={{
+            position: "absolute",
+            height: "100dvh",
+            width: "100dvw",
+            backgroundColor: "var(--color-black-secundary)",
+            opacity: "20%",
+            zIndex: "11",
+            }}
+            onClick={() => CloseSideBar()}
+        ></div>
+        ):null}
 
+        <Container
+            style={{display: path.startsWith("/auth") ? "none" : ""}} 
+            isOpen={isSideBarMenuActive} 
+            onMouseEnter={OpenSideBar} onMouseLeave={CloseSideBar}
+            onClick={event => {setShowModalEditPortal(false)}}
+        >
+            <div className="logo" onClick={BackToDashboard}>
+                {isSideBarMenuActive ? 
+                    <Image src={pmLogoSBOpen} alt="pmLogo" onClick={CloseSideBar}></Image> : 
+                    screenSize > 720 ?  
+                    <Image src={pmLogoSBClosed} alt="pmLogo" onClick={CloseSideBar}></Image> : null}
             </div>
-            <div className={isMastersAdminsActive ? "checked" : ""} onClick={ToggleMasterAdminsActive}>
-                <RiUserStarLine />
-                <h2>{t("MasterAdmins")}</h2>
-            </div>
-        </section>
-      </Container>  
+            <section>
+                <div className={isPortalsActive ? "checked" : ""} onClick={TogglePortalsActive}>
+                    <HiOutlineGlobe />
+                    <h2>{t("Portals")}</h2>
+
+                </div>
+                <div className={isMastersAdminsActive ? "checked" : ""} onClick={ToggleMasterAdminsActive}>
+                    <RiUserStarLine />
+                    <h2>{t("MasterAdmins")}</h2>
+                </div>
+            </section>
+        </Container>  
+      
+      </>
     )
 }

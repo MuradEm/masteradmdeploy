@@ -74,13 +74,21 @@ interface AppContextProps {
   setVersionDate: Dispatch<SetStateAction<string>>;
   quitMasterWithoutSaving: boolean;
   setQuitMasterWithoutSaving: Dispatch<SetStateAction<boolean>>;
+  quitPortalsWithoutSaving: boolean;
+  setQuitPortalsWithoutSaving: Dispatch<SetStateAction<boolean>>;
+  detailedChart: React.ReactNode;
+  setDetailedChart: Dispatch<SetStateAction<React.ReactNode>>;
+  chartDetailedTitle: string;
+  setChartDetailedTitle: Dispatch<SetStateAction<string>>; 
+  chartDetailedHeader: string;
+  setChartDetailedHeader: Dispatch<SetStateAction<string>>; 
 }
 
 export function AppContextProvider({ children }: AppContextProviderProps) {
   const [isWrongCredentials, setIsWrongCredentials] = useState<boolean>(false);
   const [isWrongEmail, setIsWrongEmail] = useState<boolean>(false);
   const [isRecoverPassword, setIsRecoverPassword] = useState<boolean>(false);
-  const [headerLocation, setHeaderLocation] = useState<string>("Dashboard");
+  const [headerLocation, setHeaderLocation] = useState<string>("");
 
   const [userEmail, setUserEmail] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
@@ -116,8 +124,11 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
   const [versionNumber, setVersionNumber] = useState<string>("2.0")
   const [versionDate, setVersionDate] = useState<string>("2023/10/18")
   const [quitMasterWithoutSaving, setQuitMasterWithoutSaving] = useState<boolean>(false);
+  const [quitPortalsWithoutSaving, setQuitPortalsWithoutSaving] = useState<boolean>(false);
 
-
+  const [detailedChart, setDetailedChart] = useState<React.ReactNode>(<></>);
+  const [chartDetailedTitle, setChartDetailedTitle] = useState<string>("")
+  const [chartDetailedHeader, setChartDetailedHeader] = useState<string>("")
   return (
     <AppContext.Provider
       value={{
@@ -176,7 +187,15 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
         versionDate,
         setVersionDate,
         quitMasterWithoutSaving,
-        setQuitMasterWithoutSaving
+        setQuitMasterWithoutSaving,
+        quitPortalsWithoutSaving,
+        setQuitPortalsWithoutSaving,
+        detailedChart,
+        setDetailedChart,
+        chartDetailedTitle,
+        setChartDetailedTitle,
+        chartDetailedHeader,
+        setChartDetailedHeader,
       }}
     >
       {children}

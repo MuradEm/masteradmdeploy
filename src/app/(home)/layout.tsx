@@ -27,6 +27,8 @@ export default function RootLayoutHome({
         versionDate,
         quitMasterWithoutSaving,
         setQuitMasterWithoutSaving,
+        quitPortalsWithoutSaving,
+        setQuitPortalsWithoutSaving,
         setShowModalEditPortal
     } = useContext(AppContext);
     const { t } = useTranslation();
@@ -34,6 +36,23 @@ export default function RootLayoutHome({
     <>
       {/*  Modals*/}
         {showModalDelete && <ModalDelete client_id={currentPortal.client_id} textWarning={t("Do you really want to delete this portal?")} textButton1={t("No")} onClick1={e => {setShowModalDelete(false)}} textButton2={t("Yes")} onClick2={e => {}}/>}
+        
+        {quitPortalsWithoutSaving && 
+        <ModalWarning 
+        textWarning={t("Do you really want to quit without saving?")} 
+        textButton1={t("Cancel")} 
+        onClick1={() => setQuitPortalsWithoutSaving(false)}
+        textButton2={t("Yes")}
+        onClick2={() => (setShowModalEditPortal(false), setQuitPortalsWithoutSaving(false))}></ModalWarning>}
+
+        {quitMasterWithoutSaving && 
+        <ModalWarning 
+        textWarning={t("Do you really want to quit without saving?")} 
+        textButton1={t("Cancel")} 
+        onClick1={() => setQuitMasterWithoutSaving(false)}
+        textButton2={t("Yes")}
+        onClick2={() => (setShowModalEditPortal(false), setQuitMasterWithoutSaving(false))}></ModalWarning>}
+        
       {/*  Page*/}
       <SideBarMenu></SideBarMenu>
       <div className={styles.layout}>
@@ -47,13 +66,9 @@ export default function RootLayoutHome({
           onClick1={() => setShowModalAbout(false)}
         />
       )}
-      {quitMasterWithoutSaving && 
-        <ModalWarning 
-        textWarning={t("Do you really want to quit without saving?")} 
-        textButton1={t("Cancel")} 
-        onClick1={() => setQuitMasterWithoutSaving(false)}
-        textButton2={t("Yes")}
-        onClick2={() => (setShowModalEditPortal(false), setQuitMasterWithoutSaving(false))}></ModalWarning>}
+      
+        
+
         {children}
       </div>
     </>

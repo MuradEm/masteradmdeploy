@@ -48,7 +48,7 @@ export const Container= styled.header`
 
   .footer{
     gap: 0.63rem;
-    @media (max-width: 720px) {
+    @media (max-width: 1040px) {
       height: 35px;
       display: flex;
       justify-content: space-between;

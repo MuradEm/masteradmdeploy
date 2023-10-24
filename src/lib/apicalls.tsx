@@ -48,8 +48,8 @@ export async function login(
     },
     body: JSON.stringify({
       email: email,
-      password: password
-
+      password: password,
+      portal: "info"
     }),
   }).then((response) => {
     if (response.ok) {
@@ -427,7 +427,7 @@ data.append('files[]', blob2, 'smalllogo.png');
 
 
 const token = await getToken();
-return fetch(`https://dev.proj-mgmt.com/masteradm2.0/isapi.dll/update_portal`, {
+return fetch(`${masterAPIURL}/update_portal`, {
   method: "POST",
   cache: "no-cache",
   headers: {

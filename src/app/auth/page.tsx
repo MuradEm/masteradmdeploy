@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { signIn } from "next-auth/react";
 import { useContext, useState } from "react";
@@ -75,7 +77,7 @@ export default function SignIn(props: any) {
     await signIn("credentials", {
       email,
       password,
-      callbackUrl: `${typeof window !== 'undefined' && typeof window.navigator !== 'undefined' ? window.location.origin : ""}/`,
+      callbackUrl: `${(typeof window != 'undefined' && typeof window.navigator != 'undefined') ? window.location.origin : ""}/`,
       redirect: false,
     }).then(async (value) => {
       if (value?.error) {

@@ -56,6 +56,23 @@ export const Container = styled.div`
         height: 6.25rem;
     }
   }
-
-
+  .click{
+    flex: 2;
+    margin-top: -2rem;
+    align-self: start;
+    z-index: 5000;
+    width:22.1875rem;
+    height: 10.625rem;
+    background-color: 'transparent';
+    position: absolute;
+    @media (min-width: 720px) {
+      width:33.125rem;
+      height:15.625rem ;
+    }
+  }
+  .click:hover+.tooltip-text {
+      
+      display: block;
+    }
+  
 `;

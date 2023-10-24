@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import { ReactNode } from "react";
 import { ButtonIcon } from "../ButtonIcon";
 import { Container } from "./styles";
 
-import aboutIcon from "../../assets/icons/sheetIcon.svg";
+import aboutIcon from "../../assets/icons/SheetIcon.svg";
 
 /*########################################################## 
 ***Component***

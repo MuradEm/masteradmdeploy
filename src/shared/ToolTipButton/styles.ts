@@ -5,7 +5,10 @@ export const Container = styled.div<Props>`
     position: relative;
     display: flex;
     align-items: center;
-    cursor: pointer;
+
+    img{
+      cursor: pointer;
+    }
   
     .toolTipStyle{
       width: 9.0625rem;
@@ -16,6 +19,10 @@ export const Container = styled.div<Props>`
       background-color: var(--color-black-primary);
       border-radius: 0.25rem;
       z-index: 20;
+
+      p{
+        user-select: none;
+      }
 
       @media (min-width: 720px) {
         left: 1.25rem;

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 
 import { Container } from "./styles"
 import { Chart as ChartJs, ArcElement } from "chart.js/auto";
@@ -48,7 +50,7 @@ export function ChartTasklist() {
     }
     function get_data_real(data: number)
     {
-      return  data==0?0:(data/(Number(dataGraphic.tasklists_created)+Number(dataGraphic.tasklists_archived)))>=0.139? data: (Number(dataGraphic.tasklists_created)+Number(dataGraphic.tasklists_archived))*0.14
+      return  data==0?0:(data/(Number(dataGraphic.tasklists_created)+Number(dataGraphic.tasklists_archived)))>=0.139? data: data /* (Number(dataGraphic.tasklists_created)+Number(dataGraphic.tasklists_archived))*0.14 */
       
     }
   useEffect(() => {
