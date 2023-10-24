@@ -84,15 +84,21 @@ export default function SignIn(props: any) {
         setIsWrongCredentials(true);
         setIsValidateUserLoading(false);
       } else {
-        const checkPermission = await get_portals("", true);
-        if (!checkPermission) {
-          setInvalidCredentials(true);
-          setIsValidateUserLoading(false);
-          return;
+         await get_portals("", true).then(async (valueq) => {
+          
+          if (valueq==false) {
+            setInvalidCredentials(true);
+            setIsValidateUserLoading(false);
+            return;
+          }
+          else
+            router.push(`${props.searchParams.callbackUrl}`);
         }
-        router.push(`${props.searchParams.callbackUrl}`);
+          );
+        }
+        
       }
-    });
+    );
   }
 
   if (props.searchParams.error) {
